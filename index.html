@@ -2,82 +2,127 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HOME</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
+overflow:hidden;
 font-family:Georgia,serif;
-background:radial-gradient(circle at top,#1b1b2f,#090909 70%);
-overflow:hidden;color:#fff;height:100vh}
-#stars{position:fixed;inset:0;background:
-radial-gradient(2px 2px at 20% 30%,#fff,transparent),
-radial-gradient(2px 2px at 70% 20%,#fff,transparent),
-radial-gradient(2px 2px at 80% 80%,#fff,transparent),
-radial-gradient(1px 1px at 40% 70%,#fff,transparent);}
-.center{
-position:absolute;inset:0;display:flex;
-flex-direction:column;justify-content:center;
-align-items:center;text-align:center;padding:30px}
-h1{font-size:3rem;letter-spacing:4px}
-p{margin-top:20px;max-width:650px;line-height:1.8;color:#ddd}
-button{
-margin-top:40px;padding:16px 34px;
-border:none;border-radius:999px;
-background:#b71c1c;color:#fff;
-font-size:1rem;cursor:pointer;
-transition:.3s}
-button:hover{transform:scale(1.06)}
-#envelope{
-display:none;
-width:250px;height:170px;
-margin-top:40px;
-background:#f5e9d3;
-border-radius:10px;
-color:#5b2a2a;
-font-weight:bold;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:0 20px 50px rgba(0,0,0,.4);
-cursor:pointer;
-}
-.hidden{display:none}
+background:linear-gradient(#060611,#11142a);
+color:#fff;height:100vh}
+.stars,.petals{position:fixed;inset:0;pointer-events:none}
+.star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 2s infinite alternate}
+@keyframes twinkle{to{opacity:.2;transform:scale(.4)}}
+.petal{position:absolute;top:-30px;font-size:18px;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.wrap{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;flex-direction:column;padding:25px;text-align:center}
+.card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);padding:25px;border-radius:22px;max-width:700px;box-shadow:0 0 40px rgba(0,0,0,.5)}
+h1{font-size:3rem}
+button{margin-top:22px;padding:14px 28px;border:none;border-radius:99px;background:#a10d26;color:#fff;cursor:pointer}
+#letter,#end{display:none}
+.envelope{margin:20px auto;background:#f6ead7;color:#5c2b2b;padding:50px 20px;border-radius:12px;width:260px;font-weight:bold;cursor:pointer}
+#text{white-space:pre-wrap;line-height:1.8;text-align:left}
 </style>
 </head>
 <body>
-<div id="stars"></div>
+<div class="stars" id="stars"></div>
+<div class="petals" id="petals"></div>
 
-<div class="center" id="intro">
+<div class="wrap" id="intro">
+<div class="card">
 <h1>HOME</h1>
-<p>
-Hay canciones que simplemente se escuchan...
-y hay otras que parecen haber sido escritas para una sola persona.
-Esta experiencia es para ti.
-</p>
-<button onclick="start()">Comenzar</button>
+<p style="margin-top:18px">Hay canciones que simplemente se escuchan... y hay otras que hacen pensar inmediatamente en una persona. Esta página es para ti, Menita.</p>
+<button onclick="next1()">Comenzar</button>
+</div>
 </div>
 
-<div class="center hidden" id="scene">
-<h2 style="font-size:2rem">Para mi Menita preciosa 💌</h2>
-<div id="envelope" onclick="alert('Aquí se abrirá la carta en la siguiente parte.')">
-Para mi Menita preciosa
+<div class="wrap" id="scene" style="display:none">
+<div class="card">
+<h2>Para mi Menita preciosa 💌</h2>
+<div class="envelope" onclick="openLetter()">Toca para abrir la carta</div>
+<p>Cuando abras este sobre comenzará HOME desde el minuto 2:40.</p>
 </div>
-<p style="margin-top:30px">
-Cuando abras este sobre comenzará nuestra historia...
-</p>
-<audio id="homeSong" src="home.mp3"></audio>
 </div>
+
+<div class="wrap" id="letter">
+<div class="card">
+<h2>Mi hogar siempre serás tú.</h2>
+<div id="text"></div>
+</div>
+</div>
+
+<div class="wrap" id="end">
+<div class="card">
+<h1>HOME</h1>
+<p>Gracias por convertirte en mi hogar.<br>Te amo con todo mi corazón.<br><br>— Ángel ❤️</p>
+</div>
+</div>
+
+<audio id="song" src="home.mp3"></audio>
 
 <script>
-function start(){
-document.getElementById("intro").classList.add("hidden");
-document.getElementById("scene").classList.remove("hidden");
-document.getElementById("envelope").style.display="flex";
+for(let i=0;i<180;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"%";
+s.style.top=Math.random()*100+"%";
+s.style.animationDelay=Math.random()*2+"s";
+document.getElementById("stars").appendChild(s);
+}
+for(let i=0;i<40;i++){
+let p=document.createElement("div");
+p.className="petal";
+p.textContent="🌹";
+p.style.left=Math.random()*100+"%";
+p.style.animationDuration=(8+Math.random()*8)+"s";
+p.style.animationDelay=Math.random()*8+"s";
+document.getElementById("petals").appendChild(p);
+}
+function next1(){
+intro.style.display="none";
+scene.style.display="flex";
+}
+const letter=`Amor...
 
-const audio=document.getElementById("homeSong");
-audio.currentTime=160; // 2:40
-audio.play().catch(()=>{});
+Si alguna vez me preguntaran qué significa la palabra hogar, ya no pensaría en una casa ni en un lugar. Pensaría en ti.
+
+Por eso te dediqué esa parte de HOME. Porque mientras la escuchaba entendí que tú eres el lugar donde mi corazón descansa, donde mi mente encuentra paz y donde siempre quiero volver.
+
+Gracias por cada sonrisa, por cada abrazo, por cada momento que hemos vivido. Incluso los días difíciles me enseñaron que te amo de una manera que no sabía que era posible.
+
+No sé qué nos depare el futuro, pero sí sé algo: mientras pueda caminar a tu lado, nunca voy a sentirme perdido.
+
+Eres mi lugar favorito.
+Mi tranquilidad.
+Mi persona.
+Mi hogar.
+
+Feliz Día de la Novia, mi Menita preciosa.
+
+Te amo con todo mi corazón, hoy, mañana y siempre.`;
+let i=0;
+function openLetter(){
+scene.style.display="none";
+letter.style.display="flex";
+const a=document.getElementById("song");
+a.currentTime=160;
+a.play().catch(()=>{});
+(function type(){
+if(i<letterText.length){}
+})();
+const box=document.getElementById("text");
+(function write(){
+if(i<letter.length){
+box.textContent+=letter.charAt(i++);
+setTimeout(write,28);
+}else{
+setTimeout(()=>{
+letter.style.display="none";
+end.style.display="flex";
+},5000);
+}
+})();
 }
 </script>
 </body>
