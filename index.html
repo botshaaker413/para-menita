@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para mi Menita hermosa ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:linear-gradient(180deg,#090714,#17102c);
+color:#fff;font-family:Georgia,serif;overflow-x:hidden;
+}
+.stars{position:fixed;inset:0;background:
+radial-gradient(circle at 20% 20%,rgba(255,255,255,.9) 1px,transparent 2px),
+radial-gradient(circle at 70% 35%,rgba(255,255,255,.7) 1px,transparent 2px),
+radial-gradient(circle at 40% 80%,rgba(255,255,255,.8) 1px,transparent 2px);
+background-size:260px 260px;
+animation:move 18s linear infinite;
+opacity:.7}
+@keyframes move{from{transform:translateY(0)}to{transform:translateY(-260px)}}
+.wrap{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{
+max-width:760px;width:100%;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,.15);
+border-radius:24px;padding:32px;text-align:center;
+box-shadow:0 10px 40px rgba(0,0,0,.45)
+}
+h1{font-size:2.2rem;margin-bottom:12px}
+button{
+margin-top:24px;padding:14px 28px;border:none;border-radius:999px;
+background:#b48cff;color:#fff;font-size:1rem;cursor:pointer}
+#content{display:none;margin-top:26px;text-align:left;line-height:1.9;font-size:1.08rem}
+.photo{
+display:inline-block;width:180px;height:220px;margin:12px;
+border-radius:18px;border:2px solid rgba(255,255,255,.25);
+overflow:hidden;background:#2a2342}
+.photo img{width:100%;height:100%;object-fit:cover}
+.center{text-align:center}
+.final{font-size:2rem;margin-top:30px}
+.small{opacity:.8;font-size:.95rem}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+
+<div class="wrap">
+<div class="card">
+<h1>Para mi Menita hermosa ❤️</h1>
+<p>Hay algo que preparé con todo mi corazón.</p>
+
+<button id="open">Abrir mi carta 💌</button>
+
+<audio id="music">
+<source src="home.mp3" type="audio/mpeg">
+</audio>
+
+<div id="content">
+<h2 class="center">Mi Menita hermosa ❤️</h2>
+
+<p>
+Elegí esta canción por una razón muy especial.
+No fue porque simplemente me gustara, sino porque hubo una parte que hizo que pensara inmediatamente en ti.
+</p>
+
+<p>
+Cuando dice:
+<br><br>
+<i>«Incluso cuando todo está en silencio, es cómodo...»</i>
+<br><br>
+Sentí que describía perfectamente lo que vivo contigo.
+Porque contigo nunca necesito que pase algo extraordinario para sentirme feliz.
+A veces basta con estar contigo, mirarte o simplemente compartir un momento en silencio.
+Y aun así, ese silencio se siente bonito.
+</p>
+
+<p>
+Después llega la frase:
+</p>
+
+<h2 class="center">You are my home.</h2>
+
+<p>
+Y entendí por qué quería dedicarte exactamente este pedacito.
+Porque para mí un hogar no es un lugar.
+Un hogar es la persona con la que siento paz.
+La persona con la que quiero volver una y otra vez.
+La persona que hace que cualquier momento sea especial.
+Y esa persona eres tú.
+</p>
+
+<div class="center">
+<div class="photo"><img src="foto1.jpg" alt=""></div>
+<div class="photo"><img src="foto2.jpg" alt=""></div>
+<div class="photo"><img src="foto3.jpg" alt=""></div>
+</div>
+
+<p class="center final">
+Feliz Día de la Novia ❤️
+<br>
+Te amo muchísimo.
+</p>
+
+<p class="center small">
+Siempre elegiría volver a ti.
+</p>
+
+</div>
+</div>
+</div>
+
+<script>
+const btn=document.getElementById("open");
+const music=document.getElementById("music");
+const content=document.getElementById("content");
+
+btn.addEventListener("click",()=>{
+  music.currentTime=0; // Cambia este tiempo al segundo donde inicia el fragmento
+  music.play().catch(()=>{});
+  // Cuando conozcas el segundo exacto, cambia arriba currentTime
+  // y ajusta abajo la duración en milisegundos.
+  setTimeout(()=>music.pause(),20000);
+  btn.style.display="none";
+  content.style.display="block";
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+</script>
+</body>
+</html>
