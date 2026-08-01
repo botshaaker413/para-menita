@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOME</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Georgia,serif;
+background:radial-gradient(circle at top,#1b1b2f,#090909 70%);
+overflow:hidden;color:#fff;height:100vh}
+#stars{position:fixed;inset:0;background:
+radial-gradient(2px 2px at 20% 30%,#fff,transparent),
+radial-gradient(2px 2px at 70% 20%,#fff,transparent),
+radial-gradient(2px 2px at 80% 80%,#fff,transparent),
+radial-gradient(1px 1px at 40% 70%,#fff,transparent);}
+.center{
+position:absolute;inset:0;display:flex;
+flex-direction:column;justify-content:center;
+align-items:center;text-align:center;padding:30px}
+h1{font-size:3rem;letter-spacing:4px}
+p{margin-top:20px;max-width:650px;line-height:1.8;color:#ddd}
+button{
+margin-top:40px;padding:16px 34px;
+border:none;border-radius:999px;
+background:#b71c1c;color:#fff;
+font-size:1rem;cursor:pointer;
+transition:.3s}
+button:hover{transform:scale(1.06)}
+#envelope{
+display:none;
+width:250px;height:170px;
+margin-top:40px;
+background:#f5e9d3;
+border-radius:10px;
+color:#5b2a2a;
+font-weight:bold;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 20px 50px rgba(0,0,0,.4);
+cursor:pointer;
+}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+
+<div class="center" id="intro">
+<h1>HOME</h1>
+<p>
+Hay canciones que simplemente se escuchan...
+y hay otras que parecen haber sido escritas para una sola persona.
+Esta experiencia es para ti.
+</p>
+<button onclick="start()">Comenzar</button>
+</div>
+
+<div class="center hidden" id="scene">
+<h2 style="font-size:2rem">Para mi Menita preciosa 💌</h2>
+<div id="envelope" onclick="alert('Aquí se abrirá la carta en la siguiente parte.')">
+Para mi Menita preciosa
+</div>
+<p style="margin-top:30px">
+Cuando abras este sobre comenzará nuestra historia...
+</p>
+<audio id="homeSong" src="home.mp3"></audio>
+</div>
+
+<script>
+function start(){
+document.getElementById("intro").classList.add("hidden");
+document.getElementById("scene").classList.remove("hidden");
+document.getElementById("envelope").style.display="flex";
+
+const audio=document.getElementById("homeSong");
+audio.currentTime=160; // 2:40
+audio.play().catch(()=>{});
+}
+</script>
+</body>
+</html>
