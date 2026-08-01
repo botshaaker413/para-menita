@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Para Ti ❤️</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;font-family:Georgia,serif;background:#030712}
+body{display:flex;align-items:center;justify-content:center}
+#sky{position:fixed;inset:0;background:
+radial-gradient(circle at 20% 20%,#1d2b5a 0,#030712 40%),
+#030712;}
+.star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 2.5s infinite ease-in-out}
+@keyframes twinkle{50%{opacity:.2;transform:scale(.5)}}
+.envelope{width:240px;height:150px;position:relative;cursor:pointer;z-index:5;transition:transform .8s}
+.base{position:absolute;bottom:0;width:100%;height:100px;background:#b30018;border-radius:0 0 8px 8px}
+.flap{position:absolute;top:0;width:0;height:0;border-left:120px solid transparent;border-right:120px solid transparent;border-top:75px solid #d1001f;transform-origin:top;transition:transform .8s}
+.open .flap{transform:rotateX(180deg)}
+.letter{position:absolute;left:10px;right:10px;bottom:10px;height:120px;background:#f8f2df;border-radius:6px;padding:18px;color:#111;transform:translateY(45px);transition:1s;box-shadow:0 8px 25px rgba(0,0,0,.35);overflow:auto}
+.open .letter{transform:translateY(-140px);height:300px}
+#text{white-space:pre-wrap;font-size:17px;line-height:1.5}
+.fall{position:fixed;top:-30px;font-size:18px;animation:fall linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.9}}
+@media(max-width:600px){.envelope{transform:scale(.9)} .open{transform:scale(.95)}}
+</style>
+</head>
+<body>
+<div id="sky"></div>
+<div class="envelope" id="env">
+<div class="flap"></div>
+<div class="base"></div>
+<div class="letter"><div id="text"></div></div>
+</div>
+
+<audio id="music" preload="auto">
+<source src="home.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const sky=document.getElementById('sky');
+for(let i=0;i<180;i++){
+ let s=document.createElement('div');
+ s.className='star';
+ s.style.left=Math.random()*100+'vw';
+ s.style.top=Math.random()*100+'vh';
+ s.style.animationDelay=(Math.random()*3)+'s';
+ sky.appendChild(s);
+}
+const msg=`Para mi Menita:
+
+Cada vez que pienso en ti siento que encontré un lugar al que siempre quiero volver. Gracias por existir, por hacer que incluso los días normales se sientan especiales. Esta carta es un pequeño recordatorio de que te amo muchísimo y de que siempre voy a elegir caminar a tu lado.
+
+Con todo mi corazón. ❤️`;
+
+let started=false;
+document.getElementById("env").onclick=()=>{
+ if(started) return;
+ started=true;
+ document.getElementById("env").classList.add("open");
+ const a=document.getElementById("music");
+ a.currentTime=160;
+ a.play().catch(()=>{});
+ let i=0;
+ const t=document.getElementById("text");
+ const w=setInterval(()=>{
+   t.textContent+=msg[i++];
+   if(i>=msg.length)clearInterval(w);
+ },35);
+ setInterval(()=>{
+   const e=document.createElement("div");
+   e.className="fall";
+   e.textContent=Math.random()>.5?"❤️":"🌸";
+   e.style.left=Math.random()*100+"vw";
+   e.style.animationDuration=(4+Math.random()*4)+"s";
+   document.body.appendChild(e);
+   setTimeout(()=>e.remove(),8000);
+ },180);
+};
+</script>
+</body>
+</html>
