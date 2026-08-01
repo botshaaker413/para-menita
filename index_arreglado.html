@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Para mi Menita preciosa ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{margin:0;overflow:hidden;background:radial-gradient(circle at top,#1a1f48,#05060f 70%);font-family:Georgia,serif;color:#fff}
+#stars,#hearts{position:fixed;inset:0;pointer-events:none}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 2.5s infinite alternate}
+@keyframes twinkle{from{opacity:.2}to{opacity:1}}
+.heart{position:absolute;color:#ff7ca7;animation:rise 8s linear forwards}
+@keyframes rise{from{transform:translateY(100vh)}to{transform:translateY(-10vh);opacity:0}}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center}
+#envelope{width:220px;height:140px;background:#f4e3d3;border-radius:8px;position:relative;cursor:pointer;box-shadow:0 15px 40px rgba(0,0,0,.4);margin:auto}
+#envelope:before{content:"";position:absolute;left:0;right:0;top:0;border-left:110px solid transparent;border-right:110px solid transparent;border-top:70px solid #e4cbb7;transform-origin:top;transition:.8s}
+#envelope.open:before{transform:rotateX(180deg)}
+#card{display:none;margin-top:20px;max-width:90vw;width:700px;max-height:70vh;overflow:auto;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);padding:24px;border-radius:20px;border:1px solid rgba(255,255,255,.2);text-align:left;line-height:1.8}
+.cursor{display:inline-block;width:2px;background:#fff;animation:blink .8s infinite}
+@keyframes blink{50%{opacity:0}}
+h1{margin-bottom:20px}
+</style>
+</head>
+<body>
+<div id="stars"></div><div id="hearts"></div>
+<div class="center">
+<h1>Para mi Menita preciosa ❤️</h1>
+<div id="envelope"></div>
+<div id="card"></div>
+<audio id="music" preload="auto">
+<source src="home.mp3" type="audio/mpeg">
+</audio>
+</div>
+<script>
+const stars=document.getElementById('stars');
+for(let i=0;i<250;i++){
+ let s=document.createElement('div');
+ s.className='star';
+ let z=Math.random()*3+1;
+ s.style.width=z+'px'; s.style.height=z+'px';
+ s.style.left=Math.random()*100+'vw';
+ s.style.top=Math.random()*100+'vh';
+ s.style.animationDelay=Math.random()*3+'s';
+ stars.appendChild(s);
+}
+setInterval(()=>{
+ let h=document.createElement('div');
+ h.className='heart';
+ h.textContent='❤';
+ h.style.left=Math.random()*100+'vw';
+ h.style.fontSize=(14+Math.random()*20)+'px';
+ document.getElementById('hearts').appendChild(h);
+ setTimeout(()=>h.remove(),8000);
+},350);
+
+const text=`Hay una parte de esta canción que me encanta, la del minuto 2:40. No sé por qué, pero cada vez que la escucho pienso en ti. Habla de que no hace falta decir nada para sentirse cómodo, de que un lugar se convierte en hogar simplemente porque esa persona está ahí. Y eso fue exactamente lo que sentí cuando la entendí.
+
+Creo que el amor más bonito no siempre está en las conversaciones largas o en encontrar las palabras perfectas. A veces está en los silencios, en poder estar al lado de alguien sin sentir la necesidad de llenar cada segundo con algo que decir. En simplemente mirarnos, abrazarnos o tomarnos de la mano y sentir que, aunque el mundo siga corriendo, nosotros ya encontramos nuestro lugar.
+
+Eso eres tú para mí. Mi tranquilidad, mi lugar seguro. Contigo entendí que “hogar” no siempre es un sitio, también puede ser una persona. Porque cuando estoy contigo todo se siente más ligero, más bonito y más completo.
+
+Quería dedicarte esta parte porque, sin importar si estamos riéndonos, hablando durante horas o simplemente compartiendo un momento en silencio, mientras sea contigo, siempre voy a sentir que estoy exactamente donde quiero estar.
+
+Te amo muchísimo, mi amor. Y ojalá cada vez que escuches esta parte de la canción recuerdes que, para mí, tú siempre vas a ser ese lugar al que mi corazón quiere volver.`;
+
+document.getElementById('envelope').onclick=()=>{
+ const env=document.getElementById('envelope');
+ env.classList.add('open');
+ setTimeout(()=>{
+   env.style.display='none';
+   const card=document.getElementById('card');
+   card.style.display='block';
+   const audio=document.getElementById('music');
+   audio.currentTime=160;
+   audio.play().catch(e=>console.log(e));
+   let i=0;
+   (function type(){
+      if(i<=text.length){
+        card.innerHTML=text.slice(0,i).replace(/\n/g,"<br>")+"<span class='cursor'></span>";
+        i++;
+        setTimeout(type,22);
+      }
+   })();
+ },700);
+}
+</script>
+</body>
+</html>
